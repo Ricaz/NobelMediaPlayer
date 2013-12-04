@@ -25,4 +25,9 @@ On your server box, configure Mopidy (usually `~/.config/mopidy/mopidy.conf`) to
     hostname = 127.0.0.1
     port = 6680
 
-*Note:* You need a Spotify Premium account.
+**Note:** You need a Spotify Premium account.
+
+After this, you need to configure the client to connect to the correct port.
+You can do this in `client/js/app.js` on the first line.
+
+Now, all you need to do is start the server script with Node: `node server/server.js` (depending on where you put the server).
