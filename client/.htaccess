@@ -1,0 +1,15 @@
+#### NOBEL AUTHENTICATION ACCESS FILE #####
+# Allows only members of the "Administrator" role on http://nobelnet.dk to login
+
+#AuthType Basic
+#AuthBasicProvider ldap
+#AuthName "Restricted Access"
+#AuthLDAPURL "ldaps://nobelnet.dk/ou=admin,dc=nobelnet,dc=dk?uid"
+#AuthLDAPCompareDNOnServer on
+
+#order allow,deny
+#allow from 192.168.80.12
+
+#require valid-user
+
+#satisfy any

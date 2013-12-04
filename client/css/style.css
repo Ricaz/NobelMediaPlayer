@@ -1,0 +1,247 @@
+@import url(http://fonts.googleapis.com/css?family=Source+Code+Pro);
+
+::-webkit-scrollbar {
+    width: 3em;
+    height: 1em
+}
+::-webkit-scrollbar-button {
+    background: #ccc
+}
+::-webkit-scrollbar-track-piece {
+    background: #888
+}
+::-webkit-scrollbar-thumb {
+    background: #eee
+}​
+
+html, body {
+    height: 100%;
+    background-color: #222;
+}
+body {
+    padding-top: 115px;
+    padding-bottom: 30px;
+    overflow-y: scroll;
+    background-color: #222;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.extra-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #080808;
+    color: #999;
+    font-family: "Source Code Pro", sans-serif;
+    font-size: 11px;
+    line-height: 12px;
+    z-index: 1030;
+}
+
+.extra-bar.top .container {
+    margin-bottom: 3px;
+    margin-top: 0px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.extra-bar.bottom {
+    top: 74px;
+}
+
+.extra-bar.bottom .container {
+    margin: 3px auto;
+}
+
+.extra-bar.bottom a {
+    color: greenyellow;
+    font-size: 16px;
+    line-height: 16px;
+}
+
+.yellow {
+    color: greenyellow;
+}
+
+.caret {
+    border-top: 4px solid greenyellow;
+}
+
+.progress {
+    margin:0;
+    margin-top: 4px;
+    border-radius: 0;
+    background-color: rgba(173, 255, 47, 0.2);
+    height: 2px;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+}
+
+.progress-bar {
+    background-color: greenyellow;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    height: 100%;
+}
+
+.navbar-fixed-top {
+    top: 24px;
+    border:none;
+}
+
+.footer {
+    position:fixed;
+    left: 0px;
+    bottom: 0px;
+    height: 50px;
+    width: 100%;
+}
+
+.container {
+    max-width: none !important;
+    width: 960px;
+}
+
+.container.loading {
+    text-align: center;
+}
+.container.loading img {
+    margin-top: 20%;
+}
+
+/* Undo the collapsing navbar */
+.navbar-collapse {
+    display: block !important;
+    height: auto !important;
+    padding-bottom: 0;
+    overflow: visible !important;
+}
+
+.navbar-toggle {
+    display: none;
+}
+
+.navbar-brand {
+    margin-left: -15px;
+}
+
+/* Beep bep */
+.container.loaded h1:first-child {
+    margin-top: 0;
+}
+
+/* Playlist controls */
+.song-info {
+    line-height: 30px;
+}
+.current-song-info > .row:first-child {
+    margin-bottom: 5px;
+}
+
+tbody tr:hover {
+    cursor: pointer;
+    background-color: rgba(0,0,0,0.1);
+}
+
+.tracklist tbody tr:first-child {
+    background-color: rgba(255,255,255,0.05);
+    color: #fff;
+}
+
+.tracklist thead tr:hover {
+    background-color: transparent;
+}
+
+
+table, thead, tbody, tr, td {
+    border-color: rgba(255,255,255,0.1) !important;
+}
+
+tr:hover {
+    background-color: rgba(255,255,255,0.05);
+}
+
+.tracklist td:nth-child(1) { width: 27%; }
+.tracklist td:nth-child(2) { width: 55%; }
+.tracklist td:nth-child(3) { width: 8%; }
+.tracklist td:nth-child(4) { width: 10%; }
+.tracklist td.delete > span { float:right; }
+
+.inline-block {
+    display: inline-block;
+}
+
+.full {
+    width: 100%;
+}
+
+#library {
+    padding-top: 10px;
+}
+
+.btn-search {
+    background-color: #080808;
+    border-color: #080808;
+}
+
+.btn-search:hover, .btn-search:focus {
+    background-color: #222222;
+    border-color: #222222;
+}
+
+.search-results tbody tr td:last-child {
+    text-align: right;
+}
+
+.input-search {
+    height: 34px !important;
+}
+
+.btn-append-playlist {
+    margin-bottom: 10px;
+}
+
+/* Slider */
+.slider {
+    width: 200px !important;
+
+}
+
+.slider .slider-track {
+    background-image: none !important;
+    background-color: #252525 !important;
+    border-radius: 0 !important;
+}
+
+.slider .slider-selection {
+    background-image: none !important;
+    background-color: #555 !important;
+    border-radius: 0 !important;
+}
+
+.slider .slider-handle {
+    background-image: none !important;
+    background-color: #ADFF2F !important;
+}
+
+.content {
+    color: #999;
+}
+
+.ui-keyboard {
+    font-size: 20px;
+}
+
+.ui-keyboard-preview {
+    height: 1.75em;
+}
+
+.ui-keyboard-bksp {
+    width: 4.5em;
+}

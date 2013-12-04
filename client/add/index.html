@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="description"
+          content="Nobel Media Player is a web client for controlling Nobel's media center. This includes playing music, watching TV and listening to radio.">
+    <meta name="author" content="">
+
+    <title>Nobel Media Player</title>
+
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="../js/html5shiv.js"></script>
+    <script src="../js/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+<div class="extra-bar top">
+    <div class="container">
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0"
+                 aria-valuemax="100" style="width: 0%;">
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <span class="yellow">Nobel Media Player</span> alpha
+        <span class="pull-right">
+            <span class="currently-playing"></span> |
+            <span class="time">
+                <span class="current-time"></span> / <span class="total-time"></span>
+            </span>
+        </span>
+    </div>
+</div>
+
+<!-- Page content -->
+<div class="container content">
+    <div class="jumbotron">
+        <h1>Add playlist!</h1>
+        <p>Here you can paste a URI to add your own playlists to the Nobelnet user.<br>
+        This makes it easier and faster to add your own music in the bar!</p>
+        <div class="input-group">
+            <input type="text" class="uri form-control" placeholder="Enter playlist URI">
+            <span class="input-group-btn">
+                <button class="btn btn-primary btn-submit-playlist" type="button">Go!</button>
+            </span>
+        </div>
+        <h3>How?</h3>
+        <ol>
+            <li>Open your own Spotify</li>
+            <li>Find a playlist you want to add</li>
+            <li>Right click and select 'Copy URI'</li>
+            <li>Paste into the field above and click 'Go!'</li>
+        </ol>
+    </div>
+
+
+</div>
+
+
+
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="../js/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/socket.io.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
