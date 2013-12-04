@@ -1,14 +1,14 @@
 Nobel Media Player
 ==================
 
+A web-based client and a WebSocket server using [Mopidy](https://github.com/mopidy/mopidy).
+
 ![Client screenshot](/client/img/nmp.png?raw=true)
 
-A web-based client and a WebSocket server using [Mopidy](https://github.com/mopidy/mopidy).
+**Note:** *I don't recommend trying to use the current version, as there are lots of issues and contains very messy code.*
 
 This was built for my dorm's commonhouse bar where we have a touch-screen monitor. The server runs on the box that
 is hooked up to our sound system.
-
-
 
 ### What you need to use this:
 
@@ -27,7 +27,7 @@ On your server box, configure Mopidy (usually `~/.config/mopidy/mopidy.conf`) to
     hostname = 127.0.0.1
     port = 6680
 
-**Note:** You need a Spotify Premium account.
+**Note:** *You need a Spotify Premium account.*
 
 After this, you need to configure the client to connect to the correct port.
 You can do this in `client/js/app.js` on the first line.
