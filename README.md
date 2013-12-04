@@ -1,6 +1,8 @@
 Nobel Media Player
 ==================
 
+![Client screenshot](/client/img/nmp.png?raw=true)
+
 A web-based client and a WebSocket server using [Mopidy](https://github.com/mopidy/mopidy).
 
 This was built for my dorm's commonhouse bar where we have a touch-screen monitor. The server runs on the box that
