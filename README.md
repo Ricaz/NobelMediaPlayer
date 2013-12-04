@@ -10,10 +10,11 @@ A web-based client and a WebSocket server using [Mopidy](https://github.com/mopi
 This was built for my dorm's commonhouse bar where we have a touch-screen monitor. The server runs on the box that
 is hooked up to our sound system.
 
-### Features
+Features
+--------
 
 As this is made for a specific purpose (parties) with a specific audience (drunk people), it has limited functionality.
-Currently, it works kind of like the **"Play Queue"** in Spotify, with support for loading **playlists** and **searching**.
+Currently, it works kind of like the "Play Queue" in Spotify, with support for loading playlists and searching.
 
 There is also an "admin mode". This is usually turned off during our parties.
 
@@ -40,7 +41,8 @@ Features on the todo list:
     among other things.
 
 
-### What you need to use this:
+What you need to use this:
+--------------------------
 
 * A server box with [Mopidy](https://github.com/mopidy/mopidy) and [Node JS](http://nodejs.org/) installed
 * A client with a web browser on the same network as the server
