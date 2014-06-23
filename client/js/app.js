@@ -12,6 +12,7 @@ var timer;
 var adminmode = false;
 var volume = 0;
 var slider;
+var playlistDisplaying = false;
 
 var version = '0.1';
 
@@ -129,12 +130,19 @@ client.on('connect', function () {
 // when a page is loaded, unbind ALL events.
 // then add events on global buttons
 function fixEvents() {
+    playlistDisplaying = false;
+    clearInterval(connectTimer);
     $.keyboard.keyaction.enter = function (base) {
         base.accept();      // accept the content
         $('.btn-admin-submit').click(); // submit form on enter
         $('#loginModal').modal('hide');
     };
-    $('.admin-password').keyboard();
+    $('.admin-password').keyboard({
+        accepted: function() {
+            $('.btn-admin-submit').click(); // submit form on enter
+            $('#loginModal').modal('hide');
+        }
+    });
 
     // unbind all click eventhandlers
     $('*', document).unbind('click');
@@ -167,6 +175,7 @@ function fixEvents() {
         var pass = $('.admin-password').val();
         console.log('Trying pass: ' + pass + '...');
         client.emit('request-admin', pass);
+        $('#loginModal').modal('hide');
     });
 
     $('.btn-tracklist').click(function () {
@@ -266,12 +275,15 @@ function loadLibraryPage() {
     console.log('Loading library page...');
     $('.content').hide().empty().load('sections.html #library', function () {
         // This happens after the AJAX request
+        $('.btn-append-playlist').hide();
+        playlistDisplaying = false;
 
         client.emit('request-playlists');
 
         $('.content').fadeIn(300);
 
         fixEvents();
+        handleAdminMode();
 
         // Create new events
         $(document).on('click', '.btn-search', function () {
@@ -292,7 +304,7 @@ function loadLibraryPage() {
             base.accept();      // accept the content
             $('.btn-search').click(); // submit form on enter
         };
-        var keyboard = $('.input-search').keyboard();
+        $('.input-search').keyboard();
 
         handleAdminMode();
     });
@@ -441,8 +453,8 @@ function updatePlaylists(playlists) {
 }
 
 function handlePlaylistResult(result) {
-    $('.btn-append-playlist').remove();
     if (!$.isEmptyObject(result)) {
+        playlistDisplaying = true;
         var tracks = result.tracks;
         $('.search-results tbody').empty();
         for (var i = 0; i < tracks.length; i++) {
@@ -469,12 +481,14 @@ function handlePlaylistResult(result) {
             );
         }
         if (adminmode) {
-            $('.search-results').prepend('<button class="btn btn-primary btn-append-playlist">Load whole playlist</button>');
+            $('.btn-append-playlist').show();
             $(document).off('click', '.btn-append-playlist');
             $(document).on('click', '.btn-append-playlist', function() {
                 console.log('Adding entire playlist...', result.uri);
                 client.emit('request-add-playlist', result.uri);
             });
+        } else {
+            $('.btn-append-playlist').hide();
         }
         $(document).off('click', '.table.search-results tbody tr');
         $(document).on('click', '.table.search-results tbody tr', function (e) {
@@ -510,6 +524,7 @@ function login() {
 function handleAdminMode() {
     adminmode = $.cookie('adminmode') == 'yes';
     if (adminmode) {
+        if (playlistDisplaying) $('.btn-append-playlist').show();
         $('.btn-clear').show();
         $('.btn-delete').show();
         $('.btn-shuffle').show();
@@ -521,6 +536,7 @@ function handleAdminMode() {
         });
 
     } else {
+        $('.btn-append-playlist').hide();
         $('.btn-clear').hide();
         $('.btn-delete').hide();
         $('.btn-shuffle').hide();
@@ -532,10 +548,6 @@ function handleAdminMode() {
         });
     }
 }
-
-$('.btn-admin').click(function() {
-
-});
 
 function readableTime(milliseconds) {
     var date = new Date(milliseconds);
