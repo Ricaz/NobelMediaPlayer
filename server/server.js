@@ -36,7 +36,7 @@ srv.sockets.on('connection', function (socket) {
     });
 
     socket.on('request-admin', function(pass) {
-        console.log(socket.id + ' sent pass ', pass);
+        console.log(socket.id + ' sent pass: ', pass);
         if (pass == password) socket.adminmode = true;
         else socket.adminmode = false;
         console.log('Sending adminmode ', socket.adminmode, ' to client ', socket.id);
@@ -44,7 +44,7 @@ srv.sockets.on('connection', function (socket) {
     });
 
     socket.on('request-shuffle',function() {
-        console.log(socket.id + ' wants to shuffle!');
+        console.log(socket.id + ' wants to shuffle.');
         mopidy.tracklist.shuffle(1);
     });
 
