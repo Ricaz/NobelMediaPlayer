@@ -23,9 +23,9 @@ exec("svn info " + __dirname +  " | grep 'Revision: ' | cut -d' ' -f2", function
 srv.sockets.on('connection', function (socket) {
 
     socket.adminmode = false;
-    socket.ip = socket.handshake.address.address + ":" + socket.handshake.address.port;
+    socket.ip = socket.handshake.address.address;
 
-    console.log('['.yellow, socket.id.white, ']'.yellow, 'Client connected from:'.green, socket.ip);
+    console.log('['.yellow, socket.id.white, ']'.yellow, 'Client connected from'.green, socket.ip);
 
     console.log('['.yellow, socket.id.white, ']'.yellow, 'Sending revision.');
     socket.emit('revision', revision);
@@ -284,7 +284,7 @@ srv.sockets.on('connection', function (socket) {
 });
 
 mopidy.on('state:online', function() {
-	console.log('Connected to Mopidy.'.green);
+    console.log('['.yellow, '        Mopidy      '.white, ']'.yellow, 'Connected.'.green);
     mopidy.tracklist.setConsume(true);
 
     mopidy.on('event:trackPlaybackStarted', function (track, time) {
@@ -318,18 +318,19 @@ mopidy.on('state:online', function() {
         mopidy.tracklist.getTlTracks().then(
             function (tracks) {
                 console.log('['.yellow, '     All clients    '.white, ']'.yellow, 'Sending tracklist.');
-                    srv.sockets.emit('tracklist', tracks);
-                });
-            }, consoleError
+                srv.sockets.emit('tracklist', tracks);
+            }
+        );
     });
 
     mopidy.on('event:volumeChanged', function(volume) {
         console.log('['.yellow, '        Mopidy      '.white, ']'.yellow, 'Volume changed.');
         console.log('['.yellow, '     All clients    '.white, ']'.yellow, 'Sending volume.');
         srv.sockets.emit('volume', volume);
-    })
+    });
 });
 
 mopidy.on('state:offline', function() {
-	console.log('Disconnected from Mopidy.'.red);
+    console.log('['.yellow, '        Mopidy      '.white, ']'.yellow, 'Disconnected.'.red);
+    srv.sockets.emit('mopidy-disconnect');
 });
