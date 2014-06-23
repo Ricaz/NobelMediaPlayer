@@ -3,7 +3,7 @@ var sys =       require('sys');
 var util =      require('util');
 var exec =      require('child_process').exec;
 var srv =       require('socket.io').listen(8080);
-var Mopidy =    require('mopidy').Mopidy;
+var Mopidy =    require('mopidy');
 
 var password = 1337;
 var revision;
