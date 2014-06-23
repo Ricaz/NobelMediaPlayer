@@ -1,4 +1,4 @@
-var host = 'http://localhost:8080/';
+var host = 'http://nobelix:8080/';
 var client = io.connect(host);
 
 var currentPage;
