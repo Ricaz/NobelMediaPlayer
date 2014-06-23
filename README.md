@@ -5,8 +5,6 @@ A touch-friendly web-based client and a WebSocket server using [Mopidy](https://
 
 ![Client screenshot](/client/img/nmp.png?raw=true)
 
-**Note:** *I don't recommend trying to use the current version, as there are lots of issues and contains very messy code.*
-
 This was built for my dorm's commonhouse bar where we have a touch-screen monitor. The server runs on the box that
 is hooked up to our sound system.
 
@@ -61,6 +59,7 @@ On your server box, configure Mopidy (usually `~/.config/mopidy/mopidy.conf`) to
 
 **Note:** *You need a Spotify Premium account.*
 
+In the future, the client and server will be combined so a webserver is not needed.
 After this, you need to configure the client to connect to the correct port.
 You can do this in `client/js/app.js` on the first line.
 
