@@ -28,6 +28,7 @@ client.on('connect', function () {
     console.log('Connected to WS host: ', host);
     $('.connection-status').html('Connected');
 
+
     // Start off by loading the default (music) page.
     loadTracklistPage();
 
@@ -117,12 +118,29 @@ client.on('connect', function () {
     });
 
     client.on('disconnect', function () {
+        clearInterval(connectTimer);
         console.log('Disconnected from WS host: ', host);
         $('.connection-status').html('Disconnected');
         connectTimer = setInterval(function () {
             console.log('Connecting...');
             client = io.connect(host);
         }, 2000);
+
+        client.removeAllListeners('revision');
+        client.removeAllListeners('adminmode');
+        client.removeAllListeners('tracklist');
+        client.removeAllListeners('current');
+        client.removeAllListeners('current-time');
+        client.removeAllListeners('playlists');
+        client.removeAllListeners('playlist');
+        client.removeAllListeners('volume');
+        client.removeAllListeners('state');
+        client.removeAllListeners('song-remove');
+        client.removeAllListeners('song-pause');
+        client.removeAllListeners('song-resume');
+        client.removeAllListeners('song-play');
+        client.removeAllListeners('search-result');
+        client.removeAllListeners('disconnect');
     });
 });
 
@@ -243,7 +261,7 @@ function loadTracklistPage() {
         // somehow fixEvents() won't remove these events..
         $(document).off('click', '.table.tracklist tbody tr td');
 
-        $(document).on('click', '.table.tracklist tbody tr td', function (e) {
+        $(document).on('click', '.table.tracklist tbody tr td', function () {
             if (!$(this).hasClass('delete')) {
                 if (adminmode) {
                     console.log(this, 'was clicked.');
@@ -439,9 +457,13 @@ function updatePlaylists(playlists) {
     if (playlists) {
         $('.playlists tbody').empty();
         $(playlists).each(function (i, playlist) {
-            $('.playlists tbody').append(
-                '<tr><td class="btn-load-playlist" data-uri="' + playlist.uri + '">' + playlist.name + '</td></tr>'
-            );
+            playlist.name = playlist.name.split('by')[0].trim();
+            if (playlist.name !== 'Starred') {
+                $('.playlists tbody').append(
+                        '<tr><td class="btn-load-playlist" data-uri="' + playlist.uri + '">' + playlist.name + '</td></tr>'
+                );
+            }
+
         });
     }
 
@@ -491,7 +513,7 @@ function handlePlaylistResult(result) {
             $('.btn-append-playlist').hide();
         }
         $(document).off('click', '.table.search-results tbody tr');
-        $(document).on('click', '.table.search-results tbody tr', function (e) {
+        $(document).on('click', '.table.search-results tbody tr', function () {
             var uri = $(this).attr('data-uri');
             if (uri !== 'undefined') {
                 console.log('Sending:', uri);
