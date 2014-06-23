@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6a21feb8-7479-4208-b9a2-46eb32f129e5" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/js/app.js" afterPath="$PROJECT_DIR$/client/js/app.js" />
-    </list>
+    <list default="true" id="6a21feb8-7479-4208-b9a2-46eb32f129e5" name="Default" comment="" />
     <ignored path="NobelMediaPlayer.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
