@@ -263,7 +263,7 @@ srv.sockets.on('connection', function (socket) {
                     var tracks = result[0].tracks;
                     socket.emit('search-result', tracks);
                 } else {
-                    console.log('Result == null');
+                    console.log('Search result == null');
                 }
             }, consoleError
         );

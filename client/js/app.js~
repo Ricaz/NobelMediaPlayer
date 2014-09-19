@@ -125,7 +125,6 @@ client.on('connect', function () {
             console.log('Connecting...');
             client = io.connect(host);
         }, 2000);
-
 		removeListeners();
     });
 });
