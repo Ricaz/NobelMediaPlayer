@@ -31,9 +31,9 @@ client.on('connect', function () {
 
     // Start off by loading the default (music) page.
     loadTracklistPage();
+    requestGlobals();
 
     // Add listeners for all the events the server will send
-
     client.on('revision', function(data) {
         $('.revision').html('v' + version + '.' + data);
     });
@@ -166,7 +166,6 @@ function fixEvents() {
             $('#loginModal').modal('hide');
         }
     });
-
     // unbind all click eventhandlers
     $('*', document).unbind('click');
 
@@ -245,17 +244,18 @@ function fixEvents() {
 
 }
 
+function requestGlobals() {
+    client.emit('request-current');
+    client.emit('request-state');
+    client.emit('request-volume');
+}
+
 // Loads the page from sections.php, and binds events on its buttons.
 function loadTracklistPage() {
     console.log('Loading tracklist page...');
     $('.content').hide().empty().load('sections.html #tracklist', function () {
         currentPage = 'tracklist';
-
-        // Request stuff
-        client.emit('request-current');
-        client.emit('request-state');
         client.emit('request-tracklist');
-        client.emit('request-volume');
 
         $('.content').fadeIn(300);
 
@@ -264,9 +264,9 @@ function loadTracklistPage() {
 
         // TEMPORARY FIX
         // somehow fixEvents() won't remove these events..
-        $(document).off('click', '.table.tracklist tbody tr td');
+        $(document).off('click', '.table.tracklist tbody tr:not(:first) td');
 
-        $(document).on('click', '.table.tracklist tbody tr td', function () {
+        $(document).on('click', '.table.tracklist tbody tr:not(:first) td', function () {
             if (!$(this).hasClass('delete')) {
                 if (adminmode) {
                     console.log(this, 'was clicked.');
@@ -327,7 +327,9 @@ function loadLibraryPage() {
             base.accept();      // accept the content
             $('.btn-search').click(); // submit form on enter
         };
+
         $('.input-search').keyboard();
+        console.log($('.input-search'));
 
         handleAdminMode();
     });
@@ -438,6 +440,7 @@ function updateTracklist(tracks) {
     if (!$.isEmptyObject(tracklist)) {
         $('.tracklist-empty').hide();
         $('.table.tracklist').show();
+
         $('.table.tracklist tbody').empty();
         $(tracks).each(function (i, track) {
             $(track).each(function (i, item) {
@@ -451,6 +454,43 @@ function updateTracklist(tracks) {
                 ).parent().show();
             });
         });
+
+        $('.table.tracklist tr:first-child td.delete span').remove();
+
+        // Drag & drop
+        var indexes = [];
+        $('.table.tracklist').sortable({
+            containerSelector: 'table',
+            itemPath: '> tbody',
+            itemSelector: 'tr',
+            placeholder: '<tr class="placeholder"/>',
+            delay: 500,
+            onMousedown: function (item, _super, event) {
+                if (!event.target.nodeName.match(/^(input|select)$/i) && !$(item).is(':first-child')) {
+                    event.preventDefault()
+                    return true
+                }
+            },
+            onDragStart: function (item, container, _super, event) {
+                indexes[0] = $(item).closest('tr').prevAll().length;
+
+                item.css({
+                    height: item.height(),
+                    width: item.width()
+                })
+                item.addClass("dragged")
+                $("body").addClass("dragging")
+            },
+            onDrop: function (item) {
+                item.removeClass("dragged").removeAttr("style");
+                $("body").removeClass("dragging");
+                indexes[1] = $(item).closest('tr').prevAll().length;
+                console.log('drag:', indexes);
+
+                client.emit('request-move', indexes);
+            }
+        });
+
         handleAdminMode();
     } else {
         $('.table.tracklist').hide();
@@ -576,8 +616,8 @@ function handleAdminMode() {
     }
 }
 
-function readableTime(milliseconds) {
-    var date = new Date(milliseconds);
+function readableTime(ms) {
+    var date = new Date(ms);
     var m = date.getMinutes();
     var s = date.getSeconds();
     if (s < 10) {
@@ -596,8 +636,8 @@ function getTrackByID(id) {
 
 function crop(s) {
     var max = 40;
-    if (s.length > 40)
-        return s.substring(0, 40) + "...";
+    if (s.length > max)
+        return s.substring(0, max) + "...";
     else return s;
 }
 

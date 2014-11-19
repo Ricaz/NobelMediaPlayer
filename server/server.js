@@ -190,6 +190,12 @@ srv.sockets.on('connection', function (socket) {
 
 	});
 
+    socket.on('request-move', function (data) {
+        logC(socket.id, 'wants to move:', data);
+        mopidy.tracklist.move(data[0], data[0], data[1]);
+
+    });
+
     socket.on('request-remove', function (track) {
         logC(socket.id, 'wants to remove: ' + track.tlid);
         var arr = [];
