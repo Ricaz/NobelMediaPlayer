@@ -16,11 +16,13 @@ var mopidy = new Mopidy({
 
 var consoleError = console.error.bind(console);
 
-exec("svn info " + __dirname +  " | grep 'Revision: ' | cut -d' ' -f2", function(err, stdout) {
-    revision = stdout.replace(/[^0-9]/g, "");
-});
+//exec("svn info " + __dirname +  " | grep 'Revision: ' | cut -d' ' -f2", function(err, stdout) {
+//    revision = stdout.replace(/[^0-9]/g, "");
+//});
 
-revision = '40';
+exec("git rev-list HEAD --count", function(err, stdout) {
+    revision = stdout;
+});
 
 srv.sockets.on('connection', function (socket) {
 

@@ -234,6 +234,40 @@ tr:hover {
     color: #999;
 }
 
+@media screen and (min-width: 600px) {
+    .blackscreen {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        z-index: 100000;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.92);
+        color: white;
+        text-align: center;
+        padding-top: 10%;
+    }
+
+    .blackscreen h2 {
+        font-size: 72pt;
+        margin-bottom: 100px;
+        font-family: monospace;
+    }
+
+    .blackscreen span {
+        font-size: 72pt;
+        cursor: pointer;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .blackscreen {
+        display: none;
+    }
+}
+
 .ui-keyboard {
     font-size: 20px;
 }

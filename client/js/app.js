@@ -14,11 +14,16 @@ var volume = 0;
 var slider;
 var playlistDisplaying = false;
 
-var version = '0.1';
+var version = '0.3';
 
 client = io.connect(host);
 
+$('.btn-refresh').click(function () {
+    location.reload();
+});
+
 client.on('connect', function () {
+    $('.blackscreen').fadeOut(100);
     clearInterval(connectTimer);
     console.log('Connected to WS host: ', host);
     $('.connection-status').html('Connected');
@@ -115,6 +120,7 @@ client.on('connect', function () {
     client.on('disconnect', function () {
         console.log('Disconnected from WS host: ', host);
         $('.connection-status').html('Disconnected');
+        $('.blackscreen').fadeIn(500);
 
 		removeListeners();
     });

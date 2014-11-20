@@ -60,14 +60,14 @@
 		</div>
 		<div class="extra-bar bottom">
 			<div class="container">
-				<a class="btn-play btn"><span class="glyphicon glyphicon-play"></span></a>
-				<a class="btn-stop btn"><span class="glyphicon glyphicon-stop"></span></a>
-                <a class="btn-next btn"><span class="glyphicon glyphicon-fast-forward"></span></a>
-                <a class="btn"><span class="glyphicon"></span></a>
-                <!--<a class="btn-vol-up btn"><span class="glyphicon glyphicon-volume-up"></span></a>
-                <a class="btn-vol-down btn"><span class="glyphicon glyphicon-volume-down"></span></a>-->
-                <span id="slider"></span>
-
+                <div class="pull-left">
+                    <a class="btn-play btn"><span class="glyphicon glyphicon-play"></span></a>
+                    <a class="btn-next btn"><span class="glyphicon glyphicon-fast-forward"></span></a>
+                    <a class="btn"><span class="glyphicon"></span></a>
+                    <!--<a class="btn-vol-up btn"><span class="glyphicon glyphicon-volume-up"></span></a>
+                    <a class="btn-vol-down btn"><span class="glyphicon glyphicon-volume-down"></span></a>-->
+                    <span id="slider"></span>
+                </div>
 				<div class="pull-right">
                     <a class="btn-fullscreen btn"><span class="glyphicon glyphicon-new-window"></span></a>
                     <a class="btn-clear btn"><span class="glyphicon glyphicon-trash"></span></a>
@@ -107,6 +107,12 @@
             <!-- /.modal-dialog -->
         </div>
         <!-- /.modal -->
+
+        <div class="blackscreen" display="none">
+            <h2>disconnected</h2>
+            <h2>42 58 28 20</h2>
+            <span class="btn-refresh glyphicon glyphicon-refresh"></span>
+        </div>
 
         <!-- Placed at the end of the document so the pages load faster -->
         <script src="js/jquery.min.js"></script>
