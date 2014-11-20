@@ -1,4 +1,4 @@
-var host = 'http://nobelix:8080/';
+var host = 'http://localhost:8080/';
 var client = io.connect(host);
 
 var currentPage;
@@ -16,12 +16,7 @@ var playlistDisplaying = false;
 
 var version = '0.1';
 
-(function() {
-    connectTimer = setInterval(function() {
-        console.log('Connecting...');
-        client = io.connect(host);
-    }, 2000);
-})();
+client = io.connect(host);
 
 client.on('connect', function () {
     clearInterval(connectTimer);
@@ -118,13 +113,8 @@ client.on('connect', function () {
     });
 
     client.on('disconnect', function () {
-        clearInterval(connectTimer);
         console.log('Disconnected from WS host: ', host);
         $('.connection-status').html('Disconnected');
-        connectTimer = setInterval(function () {
-            console.log('Connecting...');
-            client = io.connect(host);
-        }, 2000);
 
 		removeListeners();
     });

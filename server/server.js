@@ -333,7 +333,7 @@ mopidy.on('state:online', function() {
     mopidy.on('event:volumeChanged', function(volume) {
         logM('Volume changed.');
         logA('Sending volume.');
-        srv.sockets.emit('volume', volume);
+        srv.sockets.emit('volume', volume.volume);
     });
 });
 
