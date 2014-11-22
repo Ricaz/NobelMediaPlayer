@@ -35,6 +35,7 @@ srv.sockets.on('connection', function (socket) {
     });
 
     socket.on('request-message', function(data) {
+        logC(socket.id, 'MSG: ' + data, 'green');
         var msg = {
             from : socket.ip,
             message : data
