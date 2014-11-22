@@ -6,7 +6,7 @@ A touch-friendly web-based client and a WebSocket server using [Mopidy](https://
 ![Client screenshot](/client/img/nmp.png?raw=true)
 
 This was built for my dorm's commonhouse bar where we have a touch-screen monitor. The server runs on the box that
-is hooked up to our sound system.
+is hooked up to our sound system, and where Mopidy runs.
 
 Features
 --------
@@ -31,18 +31,18 @@ With admin mode on, you can also:
 *   Add entire playlists to the tracklist.
 
 Features on the todo list:
-*   Make admin mode completely server-side with checks on each function
-*   Make an aditional mode called "party mode".
-    This will replace admin mode so when it's on,
-    you lose the privileges of admin mode.
-    The new admin mode can change the password of party mode
-    among other things.
+- [x]   Make admin mode completely server-side with checks on each function
+- [ ]   Make an aditional mode called "party mode".
+        This will replace admin mode so when it's on,
+        you lose the privileges of admin mode.
+        The new admin mode can change the password of party mode
+        among other things.
 
 
 What you need to use this:
 --------------------------
 
-* A server box with [Mopidy](https://github.com/mopidy/mopidy) and [Node JS](http://nodejs.org/) installed
+* A server box with [Mopidy](https://github.com/mopidy/mopidy) + [Mopidy-Spotify](https://github.com/mopidy/mopidy-spotify) and [Node JS](http://nodejs.org/) installed
 * A client with a web browser on the same network as the server
 
 On your server box, configure Mopidy (usually `~/.config/mopidy/mopidy.conf`) to log in to Spotify and enable the HTTP backend:
