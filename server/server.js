@@ -16,10 +16,6 @@ var mopidy = new Mopidy({
 
 var consoleError = console.error.bind(console);
 
-//exec("svn info " + __dirname +  " | grep 'Revision: ' | cut -d' ' -f2", function(err, stdout) {
-//    revision = stdout.replace(/[^0-9]/g, "");
-//});
-
 exec("git rev-list HEAD --count", function(err, stdout) {
     revision = stdout;
 });
@@ -36,6 +32,14 @@ srv.sockets.on('connection', function (socket) {
 
     socket.on('request-revision', function() {
         socket.emit('revision', revision);
+    });
+
+    socket.on('request-message', function(data) {
+        var msg = {
+            from : socket.ip,
+            message : data
+        };
+        srv.sockets.emit('message', msg);
     });
 
     socket.on('disconnect', function() {
@@ -56,7 +60,6 @@ srv.sockets.on('connection', function (socket) {
 
     socket.on('request-current', function(e, data) {
         logC(socket.id, 'asked for current song.');
-        // Because this is done asynchronously, we 'bind' a function to be called when we get a response from Mopidy.
         mopidy.playback.getCurrentTlTrack().then(
             function (track) {
                 socket.emit('current', track);

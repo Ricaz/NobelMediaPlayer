@@ -44,6 +44,10 @@ client.on('connect', function () {
         else logout();
     });
 
+    client.on('message', function (data) {
+        client.log('Message from ' + data.from + ': ' + data.message);
+    });
+
     // Tracklist is received
     client.on('tracklist', function (data) {
         console.log('Received tracklist: ', data);
@@ -145,9 +149,6 @@ function removeListeners() {
 	client.removeAllListeners('disconnect');
 }
 
-// appearantly I still suck at js
-// when a page is loaded, unbind ALL events.
-// then add events on global buttons
 function fixEvents() {
     playlistDisplaying = false;
     clearInterval(connectTimer);
@@ -228,13 +229,9 @@ function fixEvents() {
         value: volume
     });
 
-    // TODO: Find a more reliable way of getting the value
-    // (right now it divides by 2 because the element is 200px wide)
     slider.off('slideStop');
     slider.on('slideStop', function () {
         volume = $('.slider-selection').width() / 2;
-        //volume = slider.slider('setValue', volume);
-        console.log('Volume slid to:', volume);
         client.emit('request-set-volume', volume);
     });
 
@@ -265,7 +262,6 @@ function loadTracklistPage() {
         $(document).on('click', '.table.tracklist tbody tr:not(:first) td', function () {
             if (!$(this).hasClass('delete')) {
                 if (adminmode) {
-                    console.log(this, 'was clicked.');
                     var track = getTrackByID($(this).parent().attr('id'));
                     if (track !== 'undefined') {
                         console.log('Sending:', track);
@@ -284,9 +280,7 @@ function loadTracklistPage() {
                 }
             }
         });
-
     });
-
 }
 
 function loadLibraryPage() {
@@ -460,7 +454,7 @@ function updateTracklist(tracks) {
             itemPath: '> tbody',
             itemSelector: 'tr',
             placeholder: '<tr class="placeholder"/>',
-            delay: 500,
+            delay: 250,
             onMousedown: function (item, _super, event) {
                 if (!event.target.nodeName.match(/^(input|select)$/i) && !$(item).is(':first-child')) {
                     event.preventDefault()
@@ -469,7 +463,6 @@ function updateTracklist(tracks) {
             },
             onDragStart: function (item, container, _super, event) {
                 indexes[0] = $(item).closest('tr').prevAll().length;
-
                 item.css({
                     height: item.height(),
                     width: item.width()
@@ -481,7 +474,6 @@ function updateTracklist(tracks) {
                 item.removeClass("dragged").removeAttr("style");
                 $("body").removeClass("dragging");
                 indexes[1] = $(item).closest('tr').prevAll().length;
-                console.log('drag:', indexes);
 
                 client.emit('request-move', indexes);
             }
@@ -504,7 +496,6 @@ function updatePlaylists(playlists) {
                         '<tr><td class="btn-load-playlist" data-uri="' + playlist.uri + '">' + playlist.name + '</td></tr>'
                 );
             }
-
         });
     }
 
@@ -688,6 +679,3 @@ function getFullscreen() {
     return (document.fullScreenElement && document.fullScreenElement !== null) ||
         (!document.mozFullScreen && !document.webkitIsFullScreen);
 }
-
-
-setFullScreen($.cookie('fullscreen') == 'yes');
