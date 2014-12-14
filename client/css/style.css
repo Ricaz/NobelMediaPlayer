@@ -12,7 +12,7 @@
 }
 ::-webkit-scrollbar-thumb {
     background: #eee
-}​
+}
 
 html, body {
     height: 100%;
@@ -294,7 +294,9 @@ ol.example li.placeholder {
     position: relative;
     /** More li styles **/
 }
+
 ol.example li.placeholder:before {
     position: absolute;
     /** Define arrowhead **/
 }
+
