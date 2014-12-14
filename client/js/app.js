@@ -243,10 +243,14 @@ function requestGlobals() {
     client.emit('request-volume');
 }
 
+function loadSection(id) {
+    return 'sections.html?d=' + new Date().getTime() + ' ' + id;
+}
+
 // Loads the page from sections.php, and binds events on its buttons.
 function loadTracklistPage() {
     console.log('Loading tracklist page...');
-    $('.content').hide().empty().load('sections.html #tracklist', function () {
+    $('.content').hide().empty().load(loadSection('#tracklist'), function () {
         currentPage = 'tracklist';
         client.emit('request-tracklist');
 
@@ -286,7 +290,7 @@ function loadTracklistPage() {
 function loadLibraryPage() {
     currentPage = 'library';
     console.log('Loading library page...');
-    $('.content').hide().empty().load('sections.html #library', function () {
+    $('.content').hide().empty().load(loadSection('#library'), function () {
         // This happens after the AJAX request
         $('.btn-append-playlist').hide();
         playlistDisplaying = false;
